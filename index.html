@@ -3,29 +3,36 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Chibi / Kawaii Prompt Template</title>
+  <title>Prompt Generator Versi 1 & 2</title>
   <style>
     body{font-family: sans-serif; background:#f8fafb; padding:20px;}
     .container{max-width:800px;margin:0 auto;background:#fff;border-radius:10px;padding:20px;box-shadow:0 6px 20px rgba(0,0,0,0.06)}
     h1{margin-top:0;}
     label{display:block;margin-top:15px;}
-    textarea{width:100%;height:100px;margin-top:5px;padding:10px;border-radius:6px;border:1px solid #ddd;}
+    textarea, select{width:100%;margin-top:5px;padding:10px;border-radius:6px;border:1px solid #ddd;}
+    textarea{height:100px;}
     button{margin-top:15px;padding:10px 15px;background:#0ea5a4;color:white;border:none;border-radius:6px;cursor:pointer;}
     pre{background:#f1f5f9;padding:10px;border-radius:6px;white-space:pre-wrap;word-break:break-word;}
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Chibi / Kawaii Prompt Generator</h1>
-    <p>Isi deskripsi karakter, warna latar, dan detail tambahan. Template ini akan membuat prompt otomatis untuk dipakai di Gemini atau AI Art lainnya.</p>
+    <h1>Prompt Generator (Versi 1 & 2)</h1>
+    <p>Pilih versi prompt, isi placeholder, lalu hasilkan prompt otomatis.</p>
 
-    <label>Deskripsi karakter:</label>
+    <label>Pilih versi:</label>
+    <select id="version">
+      <option value="1">Versi 1 (Template Chibi)</option>
+      <option value="2">Versi 2 (Goat Example)</option>
+    </select>
+
+    <label>Deskripsi karakter / objek:</label>
     <textarea id="character" placeholder="Contoh: panda hiking with a green backpack"></textarea>
 
     <label>Warna latar:</label>
     <textarea id="background" placeholder="Contoh: pastel green"></textarea>
 
-    <label>Detail tambahan (opsional):</label>
+    <label>Detail tambahan:</label>
     <textarea id="details" placeholder="Contoh: waving, holding a map"></textarea>
 
     <button onclick="generatePrompt()">Buat Prompt</button>
@@ -36,11 +43,18 @@
 
   <script>
     function generatePrompt(){
+      const ver = document.getElementById('version').value;
       const char = document.getElementById('character').value.trim();
       const bg = document.getElementById('background').value.trim();
       const det = document.getElementById('details').value.trim();
 
-      let prompt = `Cute chibi-style ${char}, big head small body proportions, thick clean outline, bright pastel colors, flat color with soft minimal shading, large shiny eyes with highlights, dynamic and adorable pose${det ? ", " + det : ""}, simple solid color background${bg ? " ("+bg+")" : ""}, subtle drop shadow beneath, kawaii illustration style, vector art, high quality, 4k`;
+      let prompt = "";
+
+      if(ver === "1"){
+        prompt = `Cute chibi-style ${char}, big head small body proportions, thick clean outline, bright pastel colors, flat color with soft minimal shading, large shiny eyes with highlights, dynamic and adorable pose${det ? ", " + det : ""}, simple solid color background${bg ? " ("+bg+")" : ""}, subtle drop shadow beneath, kawaii illustration style, vector art, high quality, 4k`;
+      } else {
+        prompt = `${char}, centrally positioned, is depicted in a stylized, simple design. The main color scheme is ${bg || 'choose a color'}, ${det ? det + ',' : ''} overall style is cute, simple, friendly, with calm and clean lines. The composition is flat and two-dimensional, facing directly towards the viewer, with even bright lighting emphasizing the simple cartoon character design.`;
+      }
 
       document.getElementById('result').innerText = prompt;
     }
