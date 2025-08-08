@@ -1,2 +1,2 @@
 # outlinetebalgen
-tes ini adalah sebuah tes
+ini adalah sebuuah program yang gatau buat apa ehehheeh
